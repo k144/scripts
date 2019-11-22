@@ -1,0 +1,19 @@
+#!/bin/sh
+
+CORRECTIONLEVEL=H
+
+while getopts c: OPTION
+do
+	case $OPTION in
+		c)
+			CORRECTIONLEVEL=$OPTARG;;
+		?)
+			printf "Usage of qr: [-c {LMQH}] [STRING]\n" $0
+			exit 2;;
+	esac
+done
+
+for LAST; do true; done
+
+qrencode -l $CORRECTIONLEVEL "$LAST" -o /tmp/qr.png 2> /dev/null
+feh -ZF -B white --force-aliasing /tmp/qr.png
