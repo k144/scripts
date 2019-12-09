@@ -1,0 +1,19 @@
+#!/bin/sh
+if egrep -q '#.*youtube' /etc/hosts
+then 
+	echo blocking youtube.com
+	sudo sed -i '/^#.*youtube*/s/^#//' /etc/hosts
+else
+	echo youtube.com already blocked
+	exit
+fi
+
+echo Kill firefox? [y/N]
+read answer
+case $answer in
+	y|Y)
+		killall -v firefox
+		;;
+	*)
+		echo exiting
+esac
