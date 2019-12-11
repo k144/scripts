@@ -1,0 +1,21 @@
+#!/bin/sh
+# simple screenshot script
+# uses import tool from ImageMagic and dmenu
+# by default saves screenshots in ~/Pictures/screenshots/[day of month]-[year]
+# as [file name]-[8-letter random string].png
+
+tmpfilename=sstmp.png
+sspath=~/Pictures/screenshots
+dirname=$(date +%m-%Y)
+randstr=$(head -c 5 /dev/urandom | base32)
+
+import /tmp/$tmpfilename
+
+mkdir -p $sspath/$dirname
+
+filename=$(echo "auto" | dmenu -p "screenshot name:")
+if [ "$filename" = "auto" ]; then
+	filename=$(date +%d)
+fi
+
+mv /tmp/$tmpfilename $sspath/$dirname/"$filename-$randstr.png"
