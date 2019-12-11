@@ -15,7 +15,7 @@ mkdir -p $sspath/$dirname
 
 filename=$(echo "auto" | dmenu -p "screenshot name:")
 if [ "$filename" = "auto" ]; then
-	filename=$(date +%d)
+	filename=$(date +%d-%H:%M:%S)
 fi
 
 mv /tmp/$tmpfilename $sspath/$dirname/"$filename-$randstr.png"
