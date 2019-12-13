@@ -18,4 +18,5 @@ if [ "$filename" = "auto" ]; then
 	filename=$(date +%d-%H:%M:%S)
 fi
 
+xclip -selection clipboard -t image/png -i /tmp/$tmpfilename
 mv /tmp/$tmpfilename $sspath/$dirname/"$filename-$randstr.png"
