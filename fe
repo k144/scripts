@@ -1,2 +1,2 @@
 #!/bin/dash
-$EDITOR $(du -a ~/.scripts/ ~/.config/ ~/Desktop/ ~/Downloads/ ~/usb3/ ~/Documents/ ~/Szkoła/ | sed -r "/GIMP|libreoffice|\/$/d" | awk '{print $2}' | fzf)
+$EDITOR $(du -a ~/.local/bin/ ~/.config/ ~/Desktop/ ~/Downloads/ ~/usb3/ ~/Documents/ ~/Szkoła/ | sed -r "/GIMP|libreoffice|\/$/d" | awk '{print $2}' | fzf)

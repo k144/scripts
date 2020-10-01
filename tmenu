@@ -2,4 +2,4 @@
 
 WALLPAPER_DIR=~/Obrazy/tapety
 
-sh ~/.scripts/t $(sxiv -btorq -N "tapety" $WALLPAPER_DIR | shuf -n 1)
+sh ~/.local/bin/t $(sxiv -btorq -N "tapety" $WALLPAPER_DIR | shuf -n 1)
