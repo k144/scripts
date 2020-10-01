@@ -1,0 +1,16 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) notify-send "Do aktualizacji:" "$(/usr/bin/pacman -Qu | \
+		sed -E "\
+		s/^/\n<b>/; \
+		s/ /\n<\/b>/; \
+		s/->/→/ \
+		")" ;;
+#	2) 
+#		printf "aktualizowanie... "
+#		setsid -f "st" -e nvim
+#		;;
+esac
+
+pacman -Qu | grep -Fcv "[ignored]" | sed "s/$/↓/;s/^0↓$//"

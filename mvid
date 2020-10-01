@@ -1,0 +1,2 @@
+#!/bin/dash
+ffmpeg -i $1 -i $2 -c:v libx264 -tune stillimage -c:a aac -b:a 192k -shortest $3

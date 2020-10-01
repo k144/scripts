@@ -1,0 +1,5 @@
+#!/bin/dash
+
+WALLPAPER_DIR=~/Obrazy/tapety
+
+sh ~/.scripts/t $(sxiv -btorq -N "tapety" $WALLPAPER_DIR | shuf -n 1)

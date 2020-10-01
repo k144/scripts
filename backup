@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+notify-send "backup" "Kopia zapasowa rozpoczęta"
+rsync -zzaPR /home/./kuba/{Wideo,Obrazy,Muzyka,Pulpit,Szkoła,Programy,Dokumenty} /home/./kuba/.local/bin /mnt/backup/tygodniowy && notify-send "backup" "kopia zapasowa zakończona pomyślnie"

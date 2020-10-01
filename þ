@@ -1,0 +1,5 @@
+#!/bin/bash
+
+killall $1
+eval "$1 &"
+disown $1

@@ -1,0 +1,6 @@
+#!/bin/dash
+
+THRESHOLD=50
+
+MEM_USAGE=$(free | sed -n 2p | awk  '{x = 100 * $3 / $2; printf("%.0f"), x}')
+[ $MEM_USAGE -gt $THRESHOLD ] && printf "MEM %s%%" $MEM_USAGE 

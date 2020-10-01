@@ -3,11 +3,16 @@
 
 [ -z "$2" ] && num="2" || num="$2"
 
+
 case "$1" in
 	u*) pulsemixer --change-volume +"$num" ;;
 	d*) pulsemixer --change-volume -"$num" ;;
-	m*) pulsemixer --toggle-mute ;;
-	truemute) pulsemixer --mute ;;
+	m*)
+		pulsemixer --toggle-mute
+		[[ $(pulsemixer --get-mute) -gt 0 ]] && \
+			muted_char='!'
+		;;
+	truemute) pulsemixer --mute && muted_char='!' ;;
 	play) mpc play ;;
 	n*) mpc next ;;
 	prev) mpc prev ;;
@@ -36,3 +41,13 @@ All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be tru
 i.e. \`lmc r\` for \`lmc restart\`.
 EOF
 esac
+
+if [ ! -p /tmp/xobpipe ]; then
+        mkfifo /tmp/xobpipe
+        tail -f /tmp/xobpipe | xob &
+fi
+
+printf "%s%s\n" \
+	$(pulsemixer --get-volume | cut -d" " -f1 ) \
+	$muted_char \
+	> /tmp/xobpipe

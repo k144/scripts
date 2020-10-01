@@ -1,0 +1,25 @@
+#!/bin/dash
+
+varfile=/tmp/time.block.data
+[ -f $varfile ] && . $varfile || isExpanded=0
+
+toggle () {
+	case $isExpanded in
+		0) isExpanded=1 ;;
+		*) isExpanded=0 ;;
+	esac
+	printf "isExpanded=%s" $isExpanded > $varfile
+}
+
+
+case $BLOCK_BUTTON in
+	1) toggle ;;
+	3) notify-send "Ten miesiąc" "$(cal --color=always | sed "s/..7m/<b><span color=\"orange\">/;s/..27m/<\/span><\/b>/")" ;;
+	*) ;;
+esac
+
+
+case $isExpanded in
+	0) printf "%s %s %s - %s:%s" $(date +"%A %e %B %H %M") ;;
+	1) printf "%s %s - %s.%s.%s - %s:%s:%s" $(date +"%V %a %Y %m %d %H %M %S") ;;
+esac

@@ -1,22 +1,25 @@
 #!/bin/sh
 # simple screenshot script
-# uses import tool from ImageMagic and dmenu
-# by default saves screenshots in ~/Pictures/screenshots/[day of month]-[year]
-# as [file name]-[8-letter random string].png
 
 tmpfilename=sstmp.png
-sspath=~/Pictures/screenshots
+sspath=~/Obrazy/ss
 dirname=$(date +%m-%Y)
 randstr=$(head -c 5 /dev/urandom | base32)
+timestamp=$(date +"%d %b %H:%M:%S") 
 
 import /tmp/$tmpfilename
+#scrot -s "$tmpfilename"
+#mv $tmpfilename /tmp/$tmpfilename
 
 mkdir -p $sspath/$dirname
 
-filename=$(echo "auto" | dmenu -p "screenshot name:")
-if [ "$filename" = "auto" ]; then
-	filename=$(date +%d-%H:%M:%S)
-fi
+filename=$(echo auto | dmenu -p "nazwa zrzutu ekranu:")
+
+case $filename in
+	"auto") filename="zrzut ekranu - $timestamp" ;;
+	"") exit ;;
+esac
+
 
 xclip -selection clipboard -t image/png -i /tmp/$tmpfilename
-mv /tmp/$tmpfilename $sspath/$dirname/"$filename-$randstr.png"
+mv /tmp/$tmpfilename $sspath/$dirname/"$filename.png"

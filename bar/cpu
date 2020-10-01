@@ -1,0 +1,31 @@
+#!/bin/dash
+
+threshold=50
+release=5
+varfile=/tmp/cpu.block.data
+
+[ ! -f "$varfile" ] && printf "lastPrint=%s" $release >> $varfile
+. $varfile
+
+usage=$(top -b -n 2 -d 0.01 | grep '^%CPU' | tail -n 1 | sed 's/\,/\./g' | awk '{printf "%0.f", $2+$4+$6}')
+
+printTemp () {
+	sensors | awk '/Package id 0:/ {print " " substr($4, 2)}'
+}
+
+printCPU () {
+	printf "CPU %s%% ~ %s" $usage $(printTemp)
+}
+
+
+if (( usage > threshold )); then
+	printCPU
+	lastPrint=0
+
+elif (( lastPrint < release )); then
+	printCPU
+	((++lastPrint))
+
+fi;
+
+printf "lastPrint=%s" $lastPrint > $varfile
