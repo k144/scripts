@@ -4,5 +4,9 @@ acpi -b | sed -e 's/Battery 0: // ;' \
 		-e 's/, / / ; ' \
 		-e 's/Charging /⚡/ ;' \
 		-e 's/Discharging // ;' \
-		-e 's/\([0-9][0-9]\):\([0-6][0-9]\):\([0-6][0-9]\)/\1:\2/'
+		-e 's/\([0-9][0-9]\):\([0-6][0-9]\):\([0-6][0-9]\)/\1:\2/' \
+		-e 's/\([0-9][0-9]\):\([0-6][0-9]\) remaining/zostało \1:\2/' \
+		-e 's/\([0-9][0-9]\):\([0-6][0-9]\) until charged/do naładowania \1:\2/' \
+		-e 's/charging at zero rate - will never fully charge./podłączony, ale nie ładuje/' \
+		-e 's/00:\([0-6][0-9]\)/\1 min/'
 
